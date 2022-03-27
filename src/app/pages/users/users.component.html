@@ -1,0 +1,115 @@
+<app-header></app-header>
+
+<main class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+            <li class="breadcrumb-item active">Usuarios</li>
+          </ol>
+        </div>
+        <h4 class="page-title">Usuarios</h4>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="float-md-start mb-3 mb-md-0">
+            <a [routerLink]="['/user/add']" role="button" class="btn btn-outline-primary waves-effect width-lg">
+              <i class="bi bi-person-plus me-2"></i> Añadir Usuario
+            </a>
+          </div>
+          <div class="float-md-end mb-3 mb-md-0">
+            <input type="text" class="form-control" name="filterByName" placeholder="Buscar por Nombre"
+              [(ngModel)]="filterByName">
+          </div>
+          <form class="row gy-2 gx-3 align-items-center justify-content-center mb-3" [formGroup]="form"
+            (ngSubmit)="filterDate($event)">
+            <div class="col-12 col-md-auto">
+              <label>Fecha de Alta del </label>
+            </div>
+            <div class="col-12 col-md-auto">
+              <input type="date" class="form-control" formControlName="start">
+            </div>
+            <div class="col-12 col-md-auto">
+              <label> al </label>
+            </div>
+            <div class="col-12 col-md-auto">
+              <input type="date" class="form-control" formControlName="end">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary waves-effect">
+                <i class="bi bi-funnel me-2"></i> Filtrar
+              </button>
+            </div>
+          </form>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <button class="btn waves-effect btn-success col-auto mx-2" (click)="filterByStatus($event, 'a')">
+              <i class="bi bi-person-check me-2"></i> Activos
+            </button>
+            <button class="btn waves-effect btn-secondary col-auto mx-2" (click)="filterByStatus($event, 'b')">
+              <i class="bi bi-person-dash me-2"></i> Inactivos
+            </button>
+            <button class="btn waves-effect btn-danger col-auto mx-2" (click)="filterByStatus($event, 'r')">
+              <i class="bi bi-person-x me-2"></i> Revocados
+            </button>
+            <button class="btn waves-effect btn-light col-auto mx-2" (click)="filterByStatus($event, '')">
+              <i class="bi bi-people me-2"></i> Todos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover bg-white pt-3">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Login</th>
+              <th scope="col">Fecha de Alta</th>
+              <th scope="col">Estatus</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="users.length == 0">
+            <tr>
+              <td colspan="6" class="text-center fw-bold"> No hay Datos </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="users.length > 0">
+            <tr *ngFor="let user of users | searchByName: filterByName; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ user.nombre }}</td>
+              <td>{{ user.login }}</td>
+              <td>{{ user.fecha_alta | date:'dd-MM-YYYY' }}</td>
+              <td [ngSwitch]="user.status">
+                <span class="badge bg-secondary py-1 px-3" *ngSwitchCase="'B'">Inactivo</span>
+                <span class="badge bg-danger py-1 px-3" *ngSwitchCase="'R'">Revocado</span>
+                <span class="badge bg-success py-1 px-3" *ngSwitchDefault>Activo</span>
+              </td>
+              <td>
+                <div class="btn-group" role="group">
+                  <a [routerLink]="['/user/' + user.id]" role="button"
+                    class="btn bg-primary text-white rounded-circle waves-effect me-2"
+                    style="padding-right: 0.6rem !important; padding-left: 0.6rem !important;" title="Editar">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <button class="btn bg-danger text-white rounded-circle waves-effect" (click)="deleteUser(user.id)"
+                    style="padding-right: 0.6rem !important; padding-left: 0.6rem !important;" title="Eliminar">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<app-footer></app-footer>

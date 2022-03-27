@@ -31,9 +31,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.sass",
+              "./node_modules/bootstrap/scss/bootstrap.scss",
+              "./node_modules/node-waves/dist/waves.min.css",
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.scss",
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/node-waves/dist/waves.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,0 +1,44 @@
+<div class="row justify-content-center align-items-center vh-100 bg-primary">
+  <div class="col-10 col xxl-4 col-xl-5 col-lg-6 col-md-8">
+    <div class="card shadow-lg p-5 my-4 rounded-3xl">
+      <div class="card-body">
+        <header class="text-center mb-3">
+          <a href="/">
+            <img src="./assets/images/adea_mexico_logo.jpg" class="mb-5" alt="ADEA Mexico">
+          </a>
+          <h3 class="text-uppercase">Login</h3>
+        </header>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="message != ''">
+          <strong> <i class="bi bi-exclamation-triangle-fill me-2 flash"></i> {{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="auth($event)" autocomplete="off">
+          <div class="form-floating mb-3">
+            <input type="username" class="form-control rounded" id="username" placeholder="example@example.com"
+              formControlName="username" [class.is-invalid]="usernameIsInvalid" [class.is-valid]="usernameIsValid">
+            <label for="username">Username</label>
+            <div class="invalid-feedback" *ngIf="usernameField.errors && usernameField.touched">
+              <li *ngIf="usernameField.hasError('required')">The Username is Requiered.</li>
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control rounded" id="password" placeholder="Password"
+              formControlName="password" [class.is-invalid]="passwordIsInvalid" [class.is-valid]="passwordIsValid">
+            <label for="password">Password</label>
+            <div class="invalid-feedback" *ngIf="passwordField.errors && passwordField.touched">
+              <li *ngIf="passwordField.hasError('required')">
+                The Password is Requiered.
+              </li>
+              <li *ngIf="passwordField.hasError('minlength')">
+                The Password Must be at Least 4 Characters Long.
+              </li>
+            </div>
+          </div>
+          <div class="d-grid gap-1">
+            <button class="btn btn-primary" type="submit"> Log In </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

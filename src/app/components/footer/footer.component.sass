@@ -1,0 +1,37 @@
+.footer
+  bottom: 0
+  padding: 19px 15px 20px
+  position: absolute
+  // position: fixed
+  right: 0
+  color: #98a6ad
+  left: 0
+  background-color: #e3e9ed
+
+  .footer-links a
+    color: #98a6ad
+    margin-left: 1.5rem
+    -webkit-transition: all .4s
+    transition: all .4s
+
+    &:hover
+      color: #323a46
+
+    &:first-of-type
+      margin-left: 0
+
+  .footer-links a.active
+    color: #323a46
+
+.footer-alt
+  left: 0 !important
+  text-align: center
+  background-color: transparent
+
+@media (max-width: 767.98px)
+  .footer
+    left: 0 !important
+    text-align: center
+
+.hover\:footer-developer:hover
+  color: #323a46
